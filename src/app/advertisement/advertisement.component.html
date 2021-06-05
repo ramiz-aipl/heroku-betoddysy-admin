@@ -1,0 +1,212 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-12" >
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-warning">
+                            <div class="col-md-12">
+                            <div class="col-md-6" style="float: left;">
+                                <h4 class="card-title">Advertisement</h4>
+                            <!-- <p class="card-category">Advertisement</p> -->
+                            </div>
+                            <div class="col-md-6" style="float: left;">
+                                <button mat-raised-button type="button" (click)="AddForm()" matTooltip="Add Advertisement" [matTooltipPosition]="'above'" class="btn btn-primary pull-right">
+                                    <i class="material-icons">add</i> Add New
+                                </button>
+                            </div>
+                            </div>
+                            
+                            <!-- <button (click)="AddForm()">Add New</button> -->
+                            
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-warning">
+                                    <th>Image</th>
+                                    <th>Link</th>
+                                    <th>Display Order</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let singleAdvertisement of AdvertisementData">
+                                        <td>
+                                            <a href="{{UrlBase}}{{singleAdvertisement.imageUrl}}" target="_blank">
+                                            <img src="{{UrlBase}}{{singleAdvertisement.imageUrl}}" width="250" height="150"></a>
+                                        </td>
+                                        <td>
+                                            {{singleAdvertisement.link}}
+                                        </td>
+                                        <td>
+                                            {{singleAdvertisement.displayOrder}}
+                                        </td>
+                                        <td> <button mat-raised-button type="button" matTooltip="Edit Advertisement" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon" (click)="EditForm(singleAdvertisement._id)">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button mat-raised-button type="button" matTooltip="Delete Advertisement" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon" (click)="DeleteAdv(singleAdvertisement._id)">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+               
+
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            
+
+            
+            
+        </div>
+    </div>
+</div>
+<ng-template #LogoPopupDailog>
+        <div class="modal-header">
+            <h5 class="modal-title" id="SectionModalLabel">Change Logo</h5>
+            <button type="button" class="close" (click)="LogoPopupRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <h4>hi hello</h4>
+
+                    <!-- <input class="form-control-file" type="file" accept=".jpg,.png,.jpeg"
+              (change)="onUploadImage($event.target.files)" />
+            <validation-messages [control]="logoForm.controls.Logo">
+            </validation-messages> -->
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="LogoPopupRef.hide()" >Cancel</button>
+            <button type="submit" class="btn btn-primary">Update Logo</button>
+        </div>
+</ng-template>
+<ng-template #AddPopupDailog>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmitaddForm()" enctype="multipart/form-data">
+        <div class="modal-header">
+            <h5 class="modal-title" id="SectionModalLabel">Add New Advertisement</h5>
+            <button type="button" class="close" (click)="AddPopupRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>image <span class="text-danger">*</span></label>
+    
+                            <div class="custom-file">
+                                <input type="file" class="form-control" id="customFile" accept=".jpg,.png,.jpeg"
+                                    (change)="onUploadImage($event.target.files,'add')" name="image" />
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <!-- <validation-messages [control]="addForm.controls.image">
+                            </validation-messages> -->
+                        </div>
+    
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="imagePreview">
+                        <div class="image"><img src="{{imagePreview}}" alt="Image Preview" style="max-width: 100%;background: black;" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Link <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" formControlName="link" />
+                            <!-- <validation-messages [control]="addForm.controls.link">
+                            </validation-messages> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Display Order <span class="text-danger">*</span></label>
+                            <input class="form-control" type="number" formControlName="displayOrder" />
+                            <!-- <validation-messages [control]="addForm.controls.displayOrder">
+                            </validation-messages> -->
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="AddPopupRef.hide()" >Cancel</button>
+            <button type="submit" class="btn btn-primary">Add </button>
+        </div>
+    </form>
+</ng-template>
+<ng-template #EditPopupDailog>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmiteditForm()" enctype="multipart/form-data">
+        <div class="modal-header">
+            <h5 class="modal-title" id="SectionModalLabel">Add New Advertisement</h5>
+            <button type="button" class="close" (click)="EditPopupRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>image <span class="text-danger">*</span></label>
+    
+                            <div class="custom-file">
+                                <input type="file" class="form-control" id="customFile" accept=".jpg,.png,.jpeg"
+                                    (change)="onUploadImage($event.target.files,'edit')" name="image" />
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <!-- <validation-messages [control]="editForm.controls.image">
+                            </validation-messages> -->
+                        </div>
+    
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="imagePreview">
+                        <div class="image"><img src="{{imagePreview}}" alt="Image Preview" style="max-width: 100%;background: black;" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Link <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" formControlName="link" />
+                            <!-- <validation-messages [control]="editForm.controls.link">
+                            </validation-messages> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Display Order <span class="text-danger">*</span></label>
+                            <input class="form-control" type="number" formControlName="displayOrder" />
+                            <!-- <validation-messages [control]="editForm.controls.displayOrder">
+                            </validation-messages> -->
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="EditPopupRef.hide()" >Cancel</button>
+            <button type="submit" class="btn btn-primary">Update </button>
+        </div>
+    </form>
+</ng-template>
+<ngx-spinner></ngx-spinner>

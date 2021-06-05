@@ -1,0 +1,13 @@
+mat-expansion-panel-header span.mat-expansion-indicator {
+    display: none !important;
+  }
+  .mat-expansion-panel-body {
+    padding: 0px !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0px !important;
+}
+

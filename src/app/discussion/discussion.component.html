@@ -1,0 +1,270 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="col-md-12" *ngIf="DiscussionData.length" >
+
+                <!---Piyush Design for discussion-->
+
+                <mat-accordion *ngFor="let DiscussionList of DiscussionData">
+                
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                        (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="profile_main_box">
+                                <div class="profile_box">
+                                    <div class="reported" *ngIf="DiscussionList.IsAdminReported">Reported</div>
+                                      <div class="user_pro_boxs">
+                                          <ul class="d-flex user_info">
+                                              <li class="user_img">
+                                                  <div class="user_imgs">
+                                                        <img src="/assets/img/new_logo.png">
+                                                  </div>  
+                                              </li>
+                                              <li class="user_content">
+                                                    <h4 class="title">{{DiscussionList.TopicTitle}}</h4>
+                                                  <!-- <h4>{{DiscussionList.TopicDetail}}</h4>   -->
+                                                  <div class="ioc_contens">
+                                                  <p class="title"><span><i class="fa fa-user"></i></span> {{DiscussionList.TopicCreatorName}}</p>
+                                                  <p class="color"><span><i class="fa fa-flag-checkered"></i></span> {{DiscussionList.RaceName}}</p>
+                                                  <p class="location"><span><i class="fa fa-map-marker"></i></span> {{DiscussionList.LocationName}}</p>
+                                                  <p class="date"><span><i class="fa fa-clock-o"></i></span> {{DiscussionList.CreatedDateTime}}</p>
+                                                  <p class="date text-danger" *ngIf="DiscussionList.IsReported"><span><i class="fa fa-ban"></i></span> Reported : {{DiscussionList.ReportedByName}}</p>
+
+                                                </div>
+                                              </li>
+                                              
+                                          </ul>
+                                          <div class="delete_btn" *ngIf="!DiscussionList.IsAdminReported">                        
+                                            <a (click)="openDialog(DiscussionList._id,'Discussion')"><i class="fa fa-ban"></i></a>
+                                          </div>
+                                          <div class="questions_box">
+                                            
+                                            <p class="q">{{DiscussionList.TopicDetail}}</p>
+                                            <!-- <p class="a">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            </p> -->
+                                          </div>
+                                      </div>
+                                      <div class="user_cate_list">
+                                          <ul>
+                                              <li><p><i class="fa fa-thumbs-o-up"></i> {{DiscussionList.TotalUpVote}}</p></li>
+                                              <li><p><i class="fa fa-thumbs-o-down"></i> {{DiscussionList.TotalDownVote}}</p></li>
+                                              <li><p><i class="fa fa-commenting-o"></i> {{DiscussionList.TotalComments.length}}</p></li>
+                                          </ul>
+                                      </div>
+                                </div>
+                            </div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                        
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <!-- <div *ngFor="let CommentList of DiscussionList.TotalComments"> -->
+                        <mat-accordion *ngFor="let CommentList of DiscussionList.TotalComments">
+                        
+                            <mat-expansion-panel (opened)="panelOpenState = true"
+                                                (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="proans">
+                                        <div class="reported" *ngIf="CommentList.IsAdminReported">Reported</div>
+                                        <h4>Comments</h4>
+                                        <div class="proans_box">
+                                            <div class="proans_boxs">
+                                                <ul class="d-flex proans_user_info">
+                                                    <li class="user_img">
+                                                        <div class="user_imgs">
+                                                            <img src="/assets/img/new_logo.png">
+                                                    </div>   
+                                                    </li>
+                                                    <li class="proans_content">
+                                                        <h4> {{CommentList.commentdUserName}} <span class="float-right text-danger" *ngIf="CommentList.IsReported"><i class="fa fa-ban"></i> Reported : {{CommentList.ReportedByName}}</span></h4>  
+                                                        <p> {{CommentList.commentDetail}}</p>
+                                    
+                                                        <div class="proans_content_list">
+                                                            <ul>
+                                                                <li><p><i class="fa fa-thumbs-o-up"></i> {{CommentList.TotalUpVote}}  </p></li>
+                                                                <li><p><i class="fa fa-thumbs-o-down"></i> {{CommentList.TotalDownVote}}</p></li>
+                                                                <li><p><i class="fa fa-commenting-o"></i> {{CommentList.Reply.length}}</p></li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="delete_btn" *ngIf="!CommentList.IsAdminReported">                        
+                                                    <a (click)="archiveDiscussion(CommentList._id,'Comment')"><i class="fa fa-ban"></i></a>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <!-- <p>I'm visible because I am open</p> -->
+                            <div class="proans rep" *ngFor="let replyList of CommentList.Reply">
+                                <h4 >Replies</h4>
+                                <div class="proans_box" >
+                                    <div class="reported" *ngIf="replyList.IsAdminReported">Reported</div>
+                                    <div class="proans_boxs">
+                                        <ul class="d-flex proans_user_info">
+                                            <li class="user_img">
+                                                <div class="user_imgs">
+                                                    <img src="/assets/img/new_logo.png">
+                                            </div>  
+                                            </li>
+                                            <li class="proans_content">
+                                                <h4>{{replyList.commentdUserName}} <span class="float-right text-danger" *ngIf="replyList.IsReported"><i class="fa fa-ban"></i> Reported : {{CommentList.ReportedByName}}</span></h4>  
+                                                <p>{{replyList.commentDetail}}</p>
+                            
+                                                <div class="proans_content_list">
+                                                    <ul class="text-left">
+                                                        <li><p><i class="fa fa-thumbs-o-up"></i> {{replyList.TotalUpVote}}</p></li>
+                                                        <li><p><i class="fa fa-thumbs-o-down"></i> {{replyList.TotalDownVote}}</p></li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="delete_btn" *ngIf="!replyList.IsAdminReported">                        
+                                            <a (click)="archiveDiscussion(replyList._id,'SubComment')"><i class="fa fa-ban"></i></a>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                     <!-- </div> -->
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <!---Piyush Design for discussion-->
+
+            </div>
+            <div *ngIf="!DiscussionData.length" class="no_data_discussion">
+               
+                <div class="profile_main_box">
+                    <div class="profile_box">
+                        <div class="reported" *ngIf="DiscussionList.IsAdminReported">Reported</div>
+                          <div class="user_pro_boxs">
+                            <h5>Discussion Data Not Available</h5>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- <div class="col-md-12">
+                <div *ngFor="let DiscussionList of DiscussionData">
+                    <mat-accordion>
+                
+                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            {{DiscussionList.LocationName}}  {{DiscussionList.RaceName}}  {{DiscussionList.TopicDetail}}   <i class="material-icons">thumb_up</i> : {{DiscussionList.TotalUpVote}}     <i class="material-icons">thumb_down</i> : {{DiscussionList.TotalDownVote}}   <i class="material-icons">comment</i> : {{DiscussionList.TotalComments.length}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                            
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <p>I'm visible because I am open</p>
+                        <div *ngFor="let CommentList of DiscussionList.TotalComments">
+                            
+
+                            
+                            <mat-accordion *ngIf="CommentList.Reply">
+                        
+                                <mat-expansion-panel (opened)="panelOpenState = true"
+                                                    (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{CommentList.commentDetail}}   <i class="material-icons">thumb_up</i> : {{CommentList.TotalUpVote}}     <i class="material-icons">thumb_down</i> : {{CommentList.TotalDownVote}}      <i class="material-icons">reply</i>  {{CommentList.Reply.length}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <p>I'm visible because I am open</p>
+                                <ul>
+                                    
+                                    <div *ngFor="let replyList of CommentList.Reply">
+                                        <li>
+                                        {{replyList.commentDetail}} <i class="material-icons">thumb_up</i> : {{replyList.TotalUpVote}}     <i class="material-icons">thumb_down</i> : {{replyList.TotalDownVote}}
+                                    </li>
+                                    </div>
+                                </ul>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+            
+                                <br>
+                           
+                            
+                        </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                    <br>
+                </div>
+                
+            </div> -->
+            <!-- <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Discussion List</h4>
+                        <p class="card-category"> Here is a subtitle for this table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                            <thead class="text-primary">
+                                <th> Location Name </th>
+                                <th> Race Name </th>
+                                <th> Topic Creater Name </th>
+                                <th> Topic Detail </th>
+                                <th> TotalDownVote </th>
+                                <th> TotalUpVote </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let DiscussionList of DiscussionData">
+                                    <td>
+                                        {{DiscussionList.LocationName}}
+                                    </td>
+                                    <td>
+                                       {{DiscussionList.RaceName}}
+                                    </td>
+                                    <td>
+                                       {{DiscussionList.TopicCreatorName}}
+                                    </td>
+                                    <td>
+                                       {{DiscussionList.TopicDetail}}
+                                    </td>
+                                    <td>
+                                      {{DiscussionList.TotalDownVote}}
+                                    </td>
+                                    <td>
+                                     {{DiscussionList.TotalUpVote}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>  -->
+
+            
+            
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>

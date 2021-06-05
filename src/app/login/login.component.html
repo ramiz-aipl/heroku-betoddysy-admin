@@ -1,0 +1,39 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4"></div>
+          <div class="col-md-4">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Login</h4>
+                      <p class="card-category">Login with your credential</p>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                          <div class="row">
+                              
+                              <div class="col-md-8">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Email address" type="email" id="emailaddress" formControlName="email">
+                                  </mat-form-field>
+                              </div>
+                              
+                          </div>
+                          <div class="row">
+                              <div class="col-md-8">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Password" type="password" required="" id="password"  formControlName="password" >
+                                </mat-form-field>
+                            </div>
+                          </div>
+                         
+                          <button mat-raised-button type="submit"  class="btn btn-danger pull-right">Login</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div>
